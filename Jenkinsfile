@@ -9,16 +9,12 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    dockerImage = docker.build('diabetes-ml-app')
-                }
+                bat 'docker build -t diabetes-ml-app .'
             }
         }
         stage('Run Docker Container') {
             steps {
-                script {
-                    dockerImage.run('-p 5000:5000')
-                }
+                bat 'docker run -d -p 5000:5000 --name diabetes-ml-app diabetes-ml-app'
             }
         }
     }
